@@ -15,7 +15,7 @@ def print_intervals(intervals):
 
 
 def main():
-    interval = [0, 1]
+    interval = (0, 1)
     parts = 2
 
     intervals = list_of_intervals(interval, parts)
