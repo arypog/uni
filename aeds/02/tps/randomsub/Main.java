@@ -8,7 +8,7 @@ class LCG {
         seed = s;
     }
 
-    public static int lcgRand() {
+    public static int nextInt() {
         seed = (seed * 1664525 + 1013904223) % 4294967296L;
         return (int) seed;
     }
@@ -26,22 +26,22 @@ public class Main {
     public static void main(String args[]) {
         Scanner sc = new Scanner(System.in);
 
-        String str;
-        while(true) {
-            str = sc.nextLine();
+        Random g = new Random();
+        g.setSeed(4);
 
-            if (str.equals("FIM")) break;
-            
-            // Random g = new Random();
-            // g.setSeed(4);
-            // char a = (char)  ('a' + (Math.abs(g.nextInt()) % 26));
-            // char b = (char)  ('a' + (Math.abs(g.nextInt()) % 26));
-            LCG g = new LCG();
-            g.setSeed(42);
-            char a = (char)  ('a' + (Math.abs(g.lcgRand()) % 26));
-            char b = (char)  ('a' + (Math.abs(g.lcgRand()) % 26));
+        //LCG g = new LCG();
+        //g.setSeed(42);
+
+        String str;
+        str = sc.nextLine();
+        while(!str.equals("FIM")) {
+            char a = (char)  ('a' + (Math.abs(g.nextInt()) % 26));
+            char b = (char)  ('a' + (Math.abs(g.nextInt()) % 26));
 
             System.out.println(subs(str, a, b));
+
+            str = sc.nextLine();
         }
+        sc.close();
     }
 }
