@@ -6,6 +6,41 @@ public class Main {
         return (c >= 'A' && c <= 'Z') ? (char) (c + 32) : c;
     }
 
+    public static boolean isAnagram2(String s) {
+        String[] parts = s.replaceAll("\\s+", "").split("-", 2);
+        int n = parts[0].length();
+        if (n != parts[1].length()) return false;
+
+        /* 
+         * 1.iter ('a' & 'c')
+         * c[0] +1 (a "abc")
+         * c[2] -1 (c "cba")
+         * [1, 0, -1, ...]
+         * 
+         * 2.iter ('b' & 'b')
+         * c[1] +1 (b "abc")
+         * c[1] -1 (b "cba")
+         * [1, 0, -1, ...] -> no change
+         * 
+         * 3.iter ('c' & 'a')
+         * c[2] +1
+         * c[0] -1
+         * [0, 0, 0, ...] if all 0; pog anagram. pog
+         */
+        int[] count = new int[26];
+        for (int i = 0; i < n; i++) {
+            count[toLower(parts[0].charAt(i)) - 'a']++; // a - a = 0, b - a = 1, ...
+            count[toLower(parts[1].charAt(i)) - 'a']--;
+        }
+
+        for (int c : count) {
+            if (c != 0) return false;
+        }
+
+        return true;
+        
+    }
+
     public static boolean isAnagram(String s) {
         String[] parts = s.replaceAll("\\s+", "").split("-", 2);
         int n1 = parts[0].length(), n2 = parts[1].length();

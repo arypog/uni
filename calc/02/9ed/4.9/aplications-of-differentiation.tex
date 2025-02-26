@@ -1,0 +1,398 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[all]{xy}
+\usepackage{mathtools}
+\usepackage{relsize}
+\usepackage{amsmath,amsthm,amssymb,color,latexsym}
+\usepackage{geometry}        
+\geometry{letterpaper}    
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{arrows,positioning,shapes,fit,calc}
+\pgfdeclarelayer{background}
+\pgfsetlayers{background,main}
+
+% Counters for statistics
+\newcounter{problemcount}
+\newcounter{subproblemcount}
+\newcounter{solutioncount}
+
+% Defining problem, subproblem and solution:
+\newtheorem{problem}[problemcount]{Problem}
+\newtheorem{subproblem}{\refstepcounter{subproblemcount}}[problem]
+\makeatletter
+\renewcommand{\thesubproblem}{%
+  \theproblem-\ifnum\value{subproblem}<27%
+    \alph{subproblem}%
+  \else%
+    \number\numexpr\value{subproblem}-26\relax%
+  \fi%
+}
+\makeatother
+\newenvironment{solution}[1][\it{Ans}]{
+  \refstepcounter{solutioncount}{\textbf{#1.}\\}}
+{\qedsymbol}
+
+% Define the \concept command
+\newcommand{\concept}[2]{%
+  \begin{center}
+  \fbox{\begin{minipage}{0.35\textwidth}
+    \textbf{#1}.
+    #2
+  \end{minipage}}
+  \end{center}
+}
+
+% Define the \rules command
+\newcommand{\rules}[1]{%
+  \begin{center}
+  \fbox{\begin{minipage}{0.50\textwidth}
+            #1
+  \end{minipage}}
+  \end{center}
+}
+
+
+\newcommand\problemnumbers{pg.332 15-26, 28, 35-47, 57, 67, 73, 75}
+
+
+\begin{document}
+% title
+\noindent Cálculo - Capítulo 4.9.\hfill \problemnumbers\\
+Ary Gomes da Costa. \hfill 15/02/2025\\
+
+\textbf{5-26} Determine a primitiva mais geral da função. (Confira sua resposta derivando-a.)
+
+\rules{
+		$\int c \, dx = cx$.
+}
+
+\rules{
+		$\int cf(x) \, dx = cF(x)$.
+}
+
+\rules{
+		$\int f(x) + g(x) \, dx = F(x) + G(x)$.
+}
+
+\rules{
+		$\int x^n \, dx = \frac{x^{n+1}}{n+1} \quad \text{(for } n \neq -1\text{)}$.
+}
+
+% % 15
+\setcounter{problemcount}{15 - 1}
+\begin{problem}
+\[
+    f(t) = \frac{2t - 4 + 3\sqrt{t}}{\sqrt{t}}
+\]
+\end{problem}
+
+\begin{solution}
+    \begin{equation}
+        \begin{aligned}
+            f(t)    & = 2t - 4 + 3 \times t^{\frac{1}{2}} \\
+            F(t)    & = 2 \times \frac{t^2}{2} - 4t + 3 \times \frac{t^{\frac{1}{2}+1}}{\frac{1}{2} + 1} \\
+                    & = t^2 - 4t + 3 \times \frac{t^{\frac{3}{2}} }{3 / 2} \\
+                    & = t^2 - 4t + 3 \times 2 \times \frac{t^{3/2}}{3} \\
+                    & = t^2 - 4t + 2t^{\frac{3}{2}} + C
+        \end{aligned}
+    \end{equation}
+\end{solution}
+
+
+\begin{problem}
+\[
+    f(x) = \sqrt[4]{5} + \sqrt[4]{x}
+\]
+\end{problem}
+
+\begin{solution}
+    \begin{equation}
+        \begin{aligned}
+            f(x) & = 5^{\frac{1}{4}} + x^{\frac{1}{4}} \\
+            F(x) & = 5x^{\frac{1}{4} + 1} + \frac{x^{\frac{1}{4} + 1}}{\frac{1}{4} + 1} \\
+                 & = 5x^{\frac{1}{4}} + \frac{x^{\frac{5}{4}}}{5/4} \\
+                 & = 5x^{\frac{1}{4}} + \frac{4x^{\frac{5}{4}}}{5} + C
+        \end{aligned}
+    \end{equation}
+\end{solution}
+
+\rules{
+		$\int \frac{1}{x} \, dx = \ln |x|  $.
+}
+
+\begin{problem}
+\[
+    f(x) = \frac{2}{5x} - \frac{3}{x^2}
+\]
+\end{problem}
+
+\begin{solution}
+    \begin{equation}
+        \begin{aligned}
+            f(x) & = \frac{2}{5} \times \frac{1}{x} + 3x^{-2} \\
+            F(x) & = \frac{2}{5}x \times ln|x| + 3 \times x^{-2 + 1} \\
+                 & = \frac{2}{5}ln|x| + \frac{3}{x}
+        \end{aligned}
+    \end{equation}
+\end{solution}
+
+\begin{problem}
+\[
+    f(x) = \frac{5x^2 - 6x + 4}{x^2} ,\ \ x > 0
+\]
+\end{problem}
+
+
+\begin{solution}
+    \begin{equation}
+        \begin{aligned}
+            f(x) & = (5x^2 - 6x + 4) \times x^{-2} \\
+                 & = 5x^2 \times x^{-2} - 6x \times x^{-2} + 4 \times x^{-2} \\
+                 & = 5 - 6x^{-1} + 4x^{-2} \\
+                 & = 5 - 6 \times \frac{1}{x} + 4x^{-2} \\
+            F(x) & = 5x - 6 \ln |x| + 4 \times \frac{x^{-2 + 1}}{-2 + 1} \\
+                 & = 5x - 6 \ln |x| - \frac{4}{x} + C
+        \end{aligned}
+    \end{equation}
+\end{solution}
+
+\rules{
+		$\int e^x \, dx = e^x $.
+}
+
+\begin{problem}
+\[
+    g(t) = 7e^t - e^3
+\]
+\end{problem}
+
+\begin{solution}
+    \begin{equation}
+        \begin{aligned}
+            G(t) & = 7e^t - et^3 + C
+        \end{aligned}
+    \end{equation}
+\end{solution}
+
+\begin{problem}
+\[
+    f(x) = \frac{10}{x^6} - 2e^x + 3
+\]
+\end{problem}
+
+\begin{solution}
+    \begin{equation}
+        \begin{aligned}
+            f(x) & = 10x^{-6} - 2e^x + 3 \\
+            F(x) & = 10 \times \frac{x^{-6 + 1}}{-6+1} - 2e^x + 3x \\
+                 & = -\frac{2}{x^{5}} - 2e^x + 3x + C
+        \end{aligned}
+    \end{equation}
+\end{solution}
+
+\rules{
+		$\int \cos x \, dx = \sin x  $.
+}
+
+\rules{
+		$\int \sin x \, dx = -\cos x  $.
+}
+
+\rules{
+		$\int \sec ^2 x \, dx = \tan x  $.
+}
+
+\rules{
+		$\int \sec x \tan x \, dx = \sec x  $.
+}
+
+
+\begin{problem}
+\[
+    f(\theta) = 2 \sin \theta - 3 \sec \theta \tan \theta
+\]
+\end{problem}
+
+\begin{solution}
+    \begin{equation}
+        \begin{aligned}
+            F(\theta) & = -2\sin \theta - 3 \sec \theta +C 
+        \end{aligned}
+    \end{equation}
+\end{solution}
+
+\begin{problem}
+\[
+    h(x) = \sec ^2 x + \pi \cos x
+\]
+\end{problem}
+
+\begin{solution}
+    \begin{equation}
+        \begin{aligned}
+            H(x) & =  \tan x + \pi \sin x + C
+        \end{aligned}
+    \end{equation}
+\end{solution}
+
+\rules{
+		$\int \frac{1}{\sqrt{1 - x^2}} \, dx = \sin{^{-1}x}  $.
+}
+
+\rules{
+		$\int \frac{1}{1 + x^2} \, dx = \tan{^{-1}x}  $.
+}
+
+\begin{problem}
+\[
+    f(r) = \frac{4}{1 + r^2} - \sqrt[5]{r^4}
+\]
+\end{problem}
+
+\begin{solution}
+    \begin{equation}
+        \begin{aligned}
+            f(r) & = 4 \times \frac{1}{1 + r^2} - r^{4/5} \\
+            F(r) & = 4 \tan{^{-1}r} - \frac{r^{4/5 + 1}}{4/5 + 1} \\
+                 & = 4 \tan{^{-1}r} - \frac{r^{9/5}}{9/5} \\
+                 & = 4 \tan{^{-1}r} - \frac{5}{9}\sqrt[5]{r^9} + C
+        \end{aligned}
+    \end{equation}
+\end{solution}
+
+\begin{problem}
+\[
+    g(v) = 2\cos v - \frac{3}{\sqrt{1 - v^2}}
+\]
+\end{problem}
+
+\begin{solution}
+    \begin{equation}
+        \begin{aligned}
+            g(v) & = 2\cos v - 3 \times \frac{1}{\sqrt{1 - v^2}} \\
+            G(v) & = 2 \sin v - 3 \sin{^{-1}v} + C
+        \end{aligned}
+    \end{equation}
+\end{solution}
+
+\rules{
+		$\int b^x \, dx = \frac{b^x}{\ln b}$.
+}
+
+\rules{
+		$\int \cosh x \, dx = \sinh x$.
+}
+
+\rules{
+		$\int \sinh x \, dx =  \cosh x$.
+}
+
+
+\begin{problem}
+\[
+    f(x) = 2^x + 4 \sinh x
+\]
+\end{problem}
+
+\begin{solution}
+    \begin{equation}
+        \begin{aligned}
+            F(x) & = \frac{2^x}{\ln b} + 4 \cosh x + C \\
+            
+        \end{aligned}
+    \end{equation}
+\end{solution}
+
+\rules{
+		$\int \frac{1}{1 - x^2} \, dx = \tanh{^{-1}x}  $.
+}
+
+\rules{
+		$\int \frac{1}{1 - x^2} \, dx = \frac{1}{2} \ln \left|\frac{x+1}{x-1} \right| $.
+}
+
+\rules{
+		$\ln a - \ln b = \ln (\frac{a}{b})$.
+}
+
+\begin{problem}
+\[
+    f(x) = \frac{2x^2 + 5}{x^2 - 1}
+\]
+\end{problem}
+
+\begin{solution}
+    \begin{equation}
+        \begin{aligned}
+            f(x) & = \frac{2(x^2 - 1) + 7}{x^2 - 1} \\
+                 & = 2 + \frac{7}{x^2 - 1} \\
+            \frac{7}{x^2 + 1} & = \frac{A}{x-1} + \frac{B}{x+1}\\
+            7 & = \frac{A(x + 1)(x - 1)}{(x -1)} + \frac{A(x + 1)(x - 1)} {(x + 1)} \\
+            7 & = A(x+1) + B(x-1) \\
+            7 & = Ax + A + Bx - B \\
+            7 & = (A + B)x + (A - B) \\
+            7 & = (0)x + (A - B) \\
+            7 & = (A - B) \\
+            B & = -A \\
+            7 & = A -(-A) \\
+            7 & = A + A \\
+            A & = \frac{7}{2} \text{ \& } B = -\frac{7}{2}\\
+            \frac{7}{x^2 + 1} & = \frac{7/2}{x-1} - \frac{7/2}{x+1}\\
+              & = 2 + \frac{7}{2} \times \frac{1}{x - 1} - \frac{7}{2} \times \frac{1}{x + 1} \\
+            F(x) & = 2x + \frac{7}{2} \ln |x-1| - \frac{7}{2} \ln |x+1| \\
+                 & = 2x + \frac{7}{2} \left| \frac{\ln x - 1}{\ln x + 1} \right| + C
+        \end{aligned}
+    \end{equation}
+\end{solution}
+
+\textbf{27-28} Determine a função \textit{F} que seja primitiva de \textit{f} e satisfaça a
+condição indicada. Confira sua resposta comparando os gráficos de
+\textit{f} e \textit{F}.
+
+
+\setcounter{problemcount}{28 - 1}
+
+\begin{problem}
+\[
+    f(x) = 4 - 3(1 + x^2)^{-1} ,\ \ F(1) = 0
+\]
+\end{problem}
+
+\begin{solution}
+    \begin{equation}
+        \begin{aligned}
+            f(x) & = 4 - 3 \times \frac{1}{1 + x^2} \\
+            F(x) & = 4x - 3 \tan{^{-1}x} + C\\
+            F(0) & = 4 \times 0 - 3 \tan{^{-1}0} + C\\
+            1    & = 0 - 0 + C \\
+            C    & = 1 \\
+            F(x) & = 4x - 3 \tan{^{-1}x} + 1\\
+        \end{aligned}
+    \end{equation}
+\end{solution}
+
+\textbf{29-54} Determine \textit{f}.
+
+\setcounter{problemcount}{35 - 1}
+\begin{problem}
+\[
+    f'''(t) = 12 + \sin t
+\]
+\end{problem}
+
+\begin{solution}
+    \begin{equation}
+        \begin{aligned}
+            F(t) = \ ?
+        \end{aligned}
+    \end{equation}
+\end{solution}
+
+% Statistics section
+\section*\noindent
+\textbf{N\textsuperscript{o} of Solutions:} \thesolutioncount{}
+\hfill \problemnumbers
+
+
+\end{document}
