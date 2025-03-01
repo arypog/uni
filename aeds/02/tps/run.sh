@@ -15,9 +15,9 @@ mkdir -p "$OUTDIR"
 
 case "$EXT" in
     c)
-        OUTPUT="$OUTDIR/$BASENAME"
-        gcc -o "$OUTPUT" "FILE"
-        if [ $? -eq 0]; then
+        OUTPUT="$OUTDIR$(basename $BASENAME)"
+        gcc -o "$OUTPUT" "$FILE"
+        if [ $? -eq 0 ]; then
             "$OUTPUT"
         else 
             echo "C Compilation failed."

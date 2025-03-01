@@ -6,6 +6,19 @@ public class Main {
         return (c >= 'A' && c <= 'Z') ? (char) (c + 32) : c;
     }
 
+    public static int sumChar(String s, int i, int n) {
+        if (i>=n) return 0;
+        int sum = toLower(s.charAt(i)) - 'a' + sumChar(s, i+1, n);
+        return sum;
+    }
+
+    public static boolean isAnagram3(String s) {
+        int n = s.length();
+        int sumA = sumChar(s, 0, n/2 - 1);
+        int sumB = sumChar(s, (n/2 + 2), n);
+        return (sumA == sumB);
+    }
+
     public static boolean isAnagram2(String s) {
         String[] parts = s.replaceAll("\\s+", "").split("-", 2);
         int n = parts[0].length();
@@ -68,7 +81,7 @@ public class Main {
             // https://byte-tools.com/en/ascii/code/0xc3/
             // https://byte-tools.com/en/ascii/code/0x83/
             String nao = new String(new byte[]{0x4E, (byte) 0xC3, (byte) 0x83,  0x4F}, StandardCharsets.UTF_8);
-            System.out.println(isAnagram(str) ? "SIM" : nao);
+            System.out.println(isAnagram3(str) ? "SIM" : nao);
         }
         sc.close();
     }
