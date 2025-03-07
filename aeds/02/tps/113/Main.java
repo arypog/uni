@@ -73,6 +73,7 @@ public class Main {
         System.out.println(result.append(pageName).toString().trim());
     }
 
+
     public static void main(String[] args) throws Exception {
         Scanner sc = new Scanner(System.in);
         String s;

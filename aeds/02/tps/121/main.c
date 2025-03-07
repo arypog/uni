@@ -4,7 +4,7 @@
 #define MAX_LEN 256
 
 void inverseR(char* s, int i, int n) {
-    if(i >= n/2+1) return;
+    if(i >= n/2) return;
 
     char tmp = s[i];
     s[i] = s[n - 1 - i];
