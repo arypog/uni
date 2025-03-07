@@ -1,10 +1,8 @@
 #include <stdio.h>
-#include <wchar.h>
-#include <locale.h>
-#include <wctype.h>
+#include <string.h>
 
 // gcc -o bin/pr mainr.c && ./bin/pr < pub.in > my.out
-int isPalindromerc(wchar_t* s, int i, int j) {
+int isPalindromerc(char* s, int i, int j) {
     if (i >= j) return 1;
 
     if (s[i] != s[j]) return 0;
@@ -13,23 +11,22 @@ int isPalindromerc(wchar_t* s, int i, int j) {
 }
 
 int main() {
-    setlocale(LC_ALL, "");
-    wchar_t str[500];
+    char str[500];
 
-    while (fgetws(str, sizeof(str) / sizeof(wchar_t), stdin)) {
+    while (fgets(str, sizeof(str), stdin)) {
 
         int len = 0;
-        while (str[len] != L'\0') {
-            if (str[len] == L'\n' || str[len] == L'\r') {
-                str[len] = L'\0';
+        while (str[len] != '\0') {
+            if (str[len] == '\n' || str[len] == '\r') {
+                str[len] = '\0';
                 break;
             }
             len++;
         }
 
-        if (wcscmp(str, L"FIM") == 0) break;
-        if (isPalindromerc(str, 0, len - 1)) wprintf(L"SIM\n");
-        else wprintf(L"NAO\n");
+        if (strcmp(str, "FIM") == 0) break;
+        if (isPalindromerc(str, 0, len - 1)) printf("SIM\n");
+        else printf("NAO\n");
     }
 
     return 0;
