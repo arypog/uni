@@ -1,18 +1,17 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.ArrayList;
-import java.util.List;
 
 class Main {
-    public static boolean and(List<Boolean> operands) {
+    public static boolean and(ArrayList<Boolean> operands) {
         for (Boolean operand : operands)
             if (!operand)
                 return false;
         return true;
     }
 
-    public static boolean or(List<Boolean> operands) {
+    public static boolean or(ArrayList<Boolean> operands) {
         for (Boolean operand : operands)
             if (operand)
                 return true;
@@ -33,12 +32,13 @@ class Main {
         }
 
         String token = tokens.poll();
+        System.out.println(token);
 
         switch (token) {
             case "and":
             case "or":
             case "not":
-                List<Boolean> operands = new ArrayList<>();
+                ArrayList<Boolean> operands = new ArrayList<>();
                 if (!tokens.isEmpty() && tokens.peek().equals("(")) {
                     tokens.poll(); // removes the ( 
                     while (!tokens.isEmpty() && !tokens.peek().equals(")")) {
@@ -46,6 +46,7 @@ class Main {
                     }
                     tokens.poll(); 
                 }
+
                 switch (token) {
                     case "and":
                         return and(operands);

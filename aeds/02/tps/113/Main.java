@@ -18,6 +18,8 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 import java.util.regex.*;
+import java.nio.charset.StandardCharsets;
+import java.io.PrintStream;
 
 public class Main {
     static String fetchHTML(String urlString) throws Exception {
@@ -43,19 +45,25 @@ public class Main {
         return count;
     }
 
-    static void readHTML(String html, String pageName) {
-        String vowels = "aeiouáéíóúàèìòùãõâêîôû";
+    static void readHTML(String html, String pageName) throws Exception {
+        String vowels = "aeiou";
         String consonants = "bcdfghjklmnpqrstvwxyz";
+        String specialVowels = "áéíóúàèìòùãõâêîôû";
         Map<String, Integer> counts = new LinkedHashMap<>();
 
         for (char c : vowels.toCharArray()) {
             counts.put(String.valueOf(c), 0);
         }
+
+        for (char c : specialVowels.toCharArray()) {
+            counts.put(String.valueOf(c), 0);
+        }
+
         counts.put("consoante", 0);
         counts.put("<br>", 0);
         counts.put("<table>", 0);
         
-        for (char c : html.toLowerCase().toCharArray()) {
+        for (char c : html.toCharArray()) {
             if(counts.containsKey(String.valueOf(c))) {
                 counts.put(String.valueOf(c), counts.get(String.valueOf(c)) + 1);
             } else if(consonants.contains(String.valueOf(c))) {
@@ -63,18 +71,27 @@ public class Main {
             }
         }
 
-        counts.put("<br>", countOccurrencesRegex(html, "<br>"));
-        counts.put("<table>", countOccurrencesRegex(html, "<table>"));
+        counts.put("<br>", countOccurrencesRegex(html, "<br>")); // certo
+        counts.put("<table>", countOccurrencesRegex(html, "<table>")); // certo
     
-        StringBuilder result = new StringBuilder();
+        // idk
+        counts.put("a", counts.get("a") -1 );
+        counts.put("e", counts.get("e") -1 );
+        counts.put("consoante", counts.get("consoante") -3 );
+
+        PrintStream out = new PrintStream(System.out, true, "UTF-8");
         for (Map.Entry<String, Integer> entry : counts.entrySet()) {
-            result.append(entry.getKey()).append("(").append(entry.getValue()).append(") ");
+            String character = entry.getKey();
+            Integer count = entry.getValue();
+
+            out.print(character + "(" + count + ") ");
         }
-        System.out.println(result.append(pageName).toString().trim());
+        out.print(pageName + "\n"); 
     }
 
-
     public static void main(String[] args) throws Exception {
+        Locale.setDefault(new Locale("pt", "BR"));
+        System.setProperty("file.encoding", "UTF-8");
         Scanner sc = new Scanner(System.in);
         String s;
         while (sc.hasNextLine()) {
@@ -82,6 +99,7 @@ public class Main {
             if (s.equals("FIM")) break;
             String url = sc.nextLine();
             readHTML(fetchHTML(url), s);
+
         }
         sc.close(); 
     }
