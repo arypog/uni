@@ -1,0 +1,462 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{cancel}
+\usepackage{tikz}
+
+\title{Resumo: AEDS2 - prova 01}
+\author{Ary}
+\date{15/03/2025}
+
+\begin{document}
+
+\maketitle
+
+\section{Algoritmo de Ordenação por Seleção}
+A ordenação interna ocorre quando os elementos a serem ordenados cabem na memória principal.
+
+O algoritmo segue os seguintes passos:
+\begin{enumerate}
+    \item Procura-se o menor elemento do array.
+    \item Troca-se esse elemento com o primeiro elemento do array.
+    \item Repete-se o processo para o restante do array até que a ordenação esteja completa.
+\end{enumerate}
+
+\subsection{Exemplo}
+Dado o array inicial:
+\begin{center}
+    \texttt{[101, 115, 30, 63, 47, \textcolor{red}{20}]}
+\end{center}
+Após cada iteração:
+\begin{center}
+    \texttt{[20, 115, \textcolor{red}{30}, 63, 47, 101]}
+\end{center}
+\begin{center}
+    \texttt{[20, 30, 115, 63, \textcolor{red}{47}, 101]}
+\end{center}
+\begin{center}
+    \texttt{[20, 30, 47, \textcolor{red}{63}, 115, 101]}
+\end{center}
+\begin{center}
+    \texttt{[20, 30, 47, 63, 115, \textcolor{red}{101}]}
+\end{center}
+\begin{center}
+    \texttt{[20, 30, 47, 63, 101, 115]}
+\end{center}
+
+\subsection{Implementação em Pseudocódigo}
+\begin{verbatim}
+for (int i = 0; i < (n - 1); i++) {
+    int menor = i; 
+    for (int j = (i + 1); j < n; j++) {
+        if (array[menor] > array[j]) {
+            menor = j;
+        }
+    }
+    swap(array[i], array[menor]);
+}
+\end{verbatim}
+
+\subsection{Análise de Complexidade}
+A complexidade do algoritmo de ordenação por seleção, em termos de comparações e movimentações, é:
+\begin{itemize}
+    \item \textbf{Melhor caso}: $O(n^2)$
+    \item \textbf{Pior caso}: $O(n^2)$
+    \item \textbf{Caso médio}: $O(n^2)$
+\end{itemize}
+O número de comparações pode ser expresso como a soma:
+\begin{equation}
+    \sum_{i=0}^{n-2} (n - 1 - i) = \frac{(n-1)n}{2} \Rightarrow O(n^2)
+\end{equation}
+Sendo que o loop interno repete $n - (i + 1)$ para $n-1$.\\
+O número de trocas é limitado a $O(n)$.
+
+\subsection{Conclusão}
+O algoritmo de ordenação por seleção é simples e fácil de implementar, mas não é eficiente para grandes conjuntos de dados devido à sua complexidade quadrática.
+
+
+
+\section{Somatórios}
+
+\subsection{Definição}
+\begin{equation}
+    \sum_{i=a}^{b} f(i) = f(a) + f(a+1) + \dots + f(b)
+\end{equation}
+
+
+\subsection{Regras Básicas de Manipulação}
+\begin{itemize}
+    \item \textbf{Distributividade}: $\sum c f(i) = c \sum f(i)$
+    \item \textbf{Associatividade}: $\sum (f(i) + g(i)) = \sum f(i) + \sum g(i)$
+    \item \textbf{Comutatividade}: A ordem dos termos pode ser alterada sem mudar o resultado.
+\end{itemize}
+
+\subsection{Progressão Aritmética (PA)}
+Uma PA é uma sequência cuja razão (diferença) entre dois termos
+consecutivos é constante. Por exemplo, 5, 7, 9, 11, 13,
+
+Cada termo da PA será a $i = a + b.i$, onde $a$ é o termo inicial; $b$, a razão; e, $i$, a ordem do termo.
+
+Na sequência acima, $a$ e $b$ são iguais a 5 e 2, respectivamente. Logo, temos:
+\begin{equation}
+    (5 + 2.0), (5 + 2.1), (5 + 2.2), (5 + 2.3), (5 + 2.4), \,\, ...
+\end{equation}
+
+Aplique as regras de transformação para obter a fórmula fechada da soma $S_n$ dos
+elementos de uma Progressão Aritmética (PA):
+
+\begin{equation}
+    \begin{aligned}
+        s_n &= \sum_{i=0}^{n} (a + bi) \\
+        \textit{Aplicando a Comutatividade}\\
+            &= \sum_{i=0}^{n} [a + b(n-i)] = \sum_{i=0}^{n} [a + bn - bi)] \\ 
+        2s_n&= \sum_{i=0}^{n} (a + bi) + \sum_{i=0}^{n} [a + bn - bi)] \\
+        \textit{Aplicando a Associatividade}\\
+            &= \sum_{i=0}^{n} [a + \cancel{bi} + a + bn - \cancel{bi})] \\
+        2s_n&= \sum_{i=0}^{n} [2a + bn] \\
+        \textit{Aplicando a Distributividade}\\
+            &= (2a + bn) \sum_{i=0}^{n} 1 \\
+        s_n &= \frac{(2a + bn) (n+1)}{2}
+    \end{aligned}
+\end{equation}
+
+Fórmula fechada para o somatório de Gauss, usando a fórmula da soma de uma progressão aritmética qualquer:
+\begin{equation}
+    \begin{aligned}
+        \sum_{i=0}^{n} i &= 0 + 1 + 2 + 3 + \dots + n \\   
+        s_n &= \sum_{i=0}^{n} (0 + 1i) \quad  \overset{\text{a = $i_0 = 0$}}{\underset{\text{b = r = 1}}{\phantom{a}}}\\
+            &= \frac{(\cancel{2\times0} + 1n)(n+1)}{2} \\
+            &= \frac{n (n+1)}{2}
+    \end{aligned}
+\end{equation}
+
+
+
+\subsection{Propriedades Somatorio}
+\subsubsection{P1 - Combinando Conjuntos}
+Combina conjuntos de índices diferentes. No caso, se $I$ e $I'$ são dois conjuntos
+quaisquer de inteiros, então:
+\begin{equation}
+    \begin{aligned}
+        \sum_{i \in I}a_i + \sum_{i \in I'}a_i = \sum_{i \in I \,\, I\cup I'}a_i + \sum_{i \in I \,\, I\cap I'}a_i \\
+    \end{aligned}
+\end{equation}
+Se $A = {1, 2, 3}$ e $B = {3, 5, 7}$, então
+$A \cup B = {1, 2, 3, 5, 7}$ e $A \cap B = {3}$
+\subsubsection{P2 - Base para a Perturbação}
+Dada uma soma genérica qualquer $\sum_{0\leq i\leq n} a_i$ temos que 
+\begin{equation}
+    \begin{aligned}
+        s_{n+1} &= a_0 + a_1 + a_2 + \dots + a_n + a_{n+1} \\
+        \textbf{1\textsuperscript{a} Forma} \\
+        s_{n+1} &= \tikz[baseline]{\node[draw,circle,blue,inner sep=1pt] {$s_n + a_{n+1}$};} \\
+        \textbf{2\textsuperscript{a} Forma} \\
+        s_{n+1} &= \sum_{0\leq i \leq n+1} a_i 
+            = a_0 +\sum_{1\leq i \leq n+1} a_i
+            = \tikz[baseline]{\node[draw,circle,red,inner sep=1pt] {$a_0 + \sum_{1 \leq i \leq n} a_{i+1}$};} \\
+        \textcolor{blue}{s_n + a_{n+1}} &= \textcolor{red}{a_0 + \sum_{1 \leq i \leq n} a_{i+1}}
+    \end{aligned}
+\end{equation}
+Exemplo 1:
+\begin{equation}
+    \begin{aligned}
+     s_n &= \sum_0^n ax^i \\
+     s_{n+1} &= \textcolor{blue}{s_n + ax^{n+1}} =\textcolor{red}{ax^{0} +\sum_1^{n}ax^{i+1}} \\
+    s_n + ax^{n+1} &= ax^{0} +\sum_1^{n}ax^{i+1} \\
+    s_n + ax^{n+1} &= ax^{0} + a\sum_1^{n}x^{1}x^{i} \\
+    s_n + ax^{n+1} &= ax^{0} + x^{1}a\sum_1^{n}x^{i}\\
+    s_n + ax^{n+1} &= a\times1 + x\sum_1^{n}ax^{i}\\
+    s_n + ax^{n+1} &= a + xs_n \\
+    s_n + \cancel{ax^{n+1}} - xs_n \cancel{-ax^{n+1}} &= a + \cancel{xs_n} -ax^{n+1} - \cancel{xs_n} \\
+    s_n - xs_n  &= a - ax^{n+1} \\
+    s_n - xs_n  &= a - ax^{n+1} \\
+    (1 - x)s_n  &= a - ax^{n+1} \\
+    s_n &= \frac{a - ax^{n+1}}{1-x} \quad \textit{para } x \neq 1
+    \end{aligned}
+\end{equation}
+Exemplo 2:
+\begin{equation}
+    \begin{aligned}
+     s_n &= \sum_0^n i2^i \\
+     s_n + (n+1)2^{n+1} &= 0 + \sum_0^n (i+1)2^{i+1} \\
+     s_n + (n+1)2^{n+1} &= 0 + \sum_0^n i2^{i+1} + \sum_0^n 2^{i+1} \\
+     s_n + (n+1)2^{n+1} &= 0 + 2\sum_0^n i2^{i} + \sum_0^n 2^{i+1} \\
+     s_n + (n+1)2^{n+1} &= 2s_n + 2\sum_0^n 2^{i} \\
+     s_n + (n+1)2^{n+1} &= 2s_n + 2\frac{1\times2^{n+1}}{-1} \\
+     s_n + (n+1)2^{n+1} &= 2s_n + 2(2^{n+1}-1) \\
+     (n+1)2^{n+1} - 2(2^{n+1}-1) &= 2s_n - s_n \\
+     s_n &= (n+1)2^{n+1} - 2(2^{n+1}-1) \\
+        &= n2^{n+1} - 2^{n+1} - 4^{n+1} + 2 \\
+        &= n2^{n+1} - 2^{n+1} + 2 \\
+    \sum_0^n i2^i &= (n - 1)2^{n+1} + 2
+    \end{aligned}
+\end{equation}
+
+\subsection{Adivinhe a Resposta, Prove por Indução}
+\subsubsection{1\textsuperscript{o} Passo (passo base)}
+Provar que a fórmula é verdadeira para o primeiro
+valor, substituindo n na equação pelo primeiro valor
+\subsubsection{2\textsuperscript{o} Passo (indução propriamente dita)}
+Supondo que $n > 0$ e que a fórmula é válida quando substituímos $n$ por $(n-1)$.
+
+\[
+    s_n = s_{n-1} + a_n}
+\]
+Pove por indução que a fórmula abaixo para a soma dos quadrados
+perfeitos é verdadeira:
+\begin{equation}
+    \begin{aligned}
+     \sum_0^n i^2 &= \frac{n(n+1)(2n+1)}{6} \quad \text{para }n \geq 0\\
+     \textbf{1\textsuperscript{o} Passo} \\
+     \sum_0^n i^2 &= \frac{0(0+1)(20+1)}{6}\\
+     &= \frac{0}{6} = 0\\
+     \textbf{2\textsuperscript{o} Passo} \\
+     \frac{n(n+1)(2n+1)}{6} &= \frac{(n-1)((n-1)+1)(2(n-1)+1)}{6} + a_n\\
+     \frac{(n^2 + n)(2n+1)}{6} &= \frac{(n-1)(n)(2n-1)}{6} + n^2 \\
+    \frac{2n^3 + n^2 + 2n^2 + n}{6} &= \frac{(n^2 - n)(2n-1)}{6} + n^2\\
+    \frac{2n^3 + 3n^2 + n}{6} &= \frac{2n^3 - n^2 - 2n^2 + n}{6} + n^2\\
+    &= \frac{[2n^3 - n^2 - 2n^2 + n] + 6n^2}{6}\\
+     \frac{2n^3 + 3n^2 + n}{6} &= \frac{2n^3 + 3n^2 + n}{6}\\
+    \end{aligned}
+\end{equation}
+Encontre a fórmula fechada do somatório abaixo e, em seguida, prove a usando indução matemática:
+\begin{equation}
+    \begin{aligned}
+     \sum_0^n 3 + i &= 3(n+1) + \frac{n(n+1)}{2} \\
+                    &= \frac{6n+6 + n(n+1)}{2} \\ 
+                    &= \frac{6n + 6 + n^2 + n}{2} \\
+                    &= \frac{n^2 + 7n + 6}{2} \\
+        \textbf{1\textsuperscript{o} Passo} \\
+        \frac{0^2 + 7\times0 + 6}{2} &= 3 \\    
+        \frac{0 + 0 + 6}{2} &= 3 \\
+        3 &= 3 \\
+        \textbf{2\textsuperscript{o} Passo} \\
+        \frac{n^2 + 7n + 6}{2} &= \frac{(n-1)^2 + 7(n-1) + 6}{2} + a_n \\
+        \frac{n^2 + 7n + 6}{2} &= \frac{(n^2 -2n +1) + (7n - 7) + 6}{2} + (3+n) \\
+        &= \frac{(n^2 -2n +1) + (7n - 7) + 6 + (6 + 2n)}{2}\\
+        \frac{n^2 + 7n + 6}{2} &= \frac{n^2 + 7n + 6}{2}\\
+    \end{aligned}
+\end{equation}
+
+Encontre a fórmula fechada do somatório abaixo e, em seguida, prove a usando indução matemática:
+\begin{equation}
+    \begin{aligned}
+     \sum_1^n [(2i + 1)^2 - (2i)^2] &= \sum_1^n [(4i^2 + 4i + 1) - (2i)^2] \\
+     &= \sum_1^n [4i^2 + 4i + 1 - 4i^2] \\
+     &= \sum_1^n [4i + 1] \\
+     &= 4\sum_1^n i + \sum_1^n1 \\
+     &= 4 \frac{n(n+1)}{2} + n \\
+     &= 2n(n+1) + n \\
+     &= 2n^2 + 3n \\
+     \textbf{1\textsuperscript{o} Passo} \\
+     2\times1^2 + 3\times1 &= [(2\times1 + 1)^2 - (2\times1)^2] \\
+     2 + 3 &= [(3)^2 - 2^2] \\
+     5 &= 9 - 4 \\
+     5 &= 5 \\
+     \textbf{2\textsuperscript{o} Passo} \\
+     2n^2 + 3n &= 2(n-1)^2 + 3(n-1) + a_n \\
+     2n^2 + 3n &= 2(n-1)^2 + 3(n-1) + [(2n + 1)^2 - (2n)^2] \\
+            &= 2(n^2 - 2n + 1) + 3n - 3 + [4n^2 + 4n + 1 - 4n^2] \\
+            &= 2n^2 - 4n + 2 + 3n - 3 + [4n + 1] \\
+            &= 2n^2 + 3n \\
+    \end{aligned}
+\end{equation}
+Perturbe o somatório dos cubos para encontrar a fórmula fechada do somatóriodos quadrados:
+\begin{equation}
+    \begin{aligned}
+    s_n &= \sum_0^n i^2 \\
+    scubo_n &= \sum_0^n i^3 \\
+    scubo_{n} + (n+1)^3 &= 0^3 + \sum_0^n (i+1)^3 \\
+    scubo_{n} + (n+1)^3 &= 0^3 + \sum_0^n [i^3 + 3i^2 + 3i + 1] \\
+    scubo_{n} + (n+1)^3 &= \sum_0^n i^3 + \sum_0^n 3i^2 + \sum_0^n 3i + \sum_0^n 1 \\
+   scubo_{n} + (n+1)^3 &= scubo_n + 3s_n + \frac{3n(n+1)}{2} + (n+1) \\
+   (n+1)^3 &= 3s_n + \frac{3n(n+1)}{2} + (n+1) \\
+   (n+1)^3 &= \frac{6s_n + 3n(n+1) + 2(n+1)}{2} \\
+   2(n+1)^3 - 3n(n+1) - 2(n+1) &= 6s_n \\
+   6s_n &= 2n^3 + 6n^2 + 6n + 2 - 3n^2 - 3n - 2n -2 \\
+   6s_n &= 2n^3 + 3n^2 + n\\
+   s_n &= \frac{2n^3 + 3n^2 + n}{6}\\
+    \end{aligned}
+\end{equation}
+
+\subsubsection{Faça um método int somatorioPA(double a, double b, int n) que retorna o somatório dos n primeiros termos de uma PA com termo inicial a e razão b.}
+\begin{verbatim}
+int somatorioPA(double a, double b, int n) {
+    return (2 * a + b * n) * (n + 1) / 2;
+}
+\end{verbatim}
+
+\subsubsection{Um algoritmo de ordenação tradicional é o Inserção. Faça a análise decomplexidade desse algoritmo para os números de comparações e
+movimentações entre registros no pior e melhor caso}
+\begin{verbatim}
+void insertion(int *arr, int n) {
+    for (int i = 1; i < n; i++) {
+        int key = arr[i];
+        int j = i - 1;
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j = j - 1;
+        }
+        arr[j + 1] = key;
+    }
+}
+\end{verbatim}
+\begin{equation}
+    \begin{aligned}
+    \textit{Laço interno:}\\
+    I(i-1) &= \sum_0^{i-1}1 = i \\
+    \textit{Laço Externo:} \\
+    T(n-1) &= \sum_0^{n-1}I(i-1) = \sum_0^{n-1}i = \frac{(n-1)(n)}{2}\\
+    \textit{Melhor caso:} \\
+    C(n) &= (n - 1) = \Theta(n) \\
+    \textit{Pior caso:} \\
+    C(n) &= \frac{(n-1)(n)}{2} = \Theta(n^2) \\
+    Mi(n) &= C(n) - 1 \\
+    M(n) &= Mi(n) + 2
+    \end{aligned}
+\end{equation}
+https://www.cs.umd.edu/users/meesh/cmsc351/mount/lectures/lect3-sums-and-loops.pdf
+
+\section{Estruturas de dados básicas lineares}
+\subsection{Lista linear}
+Tipo Abstrato de Dados (TAD) no qual podemos inserir e remover elementos em qualquer posição. Composta por um \textbf{Array} (de elementos) e um \textbf{n} (contador). A remoção é logica.
+\begin{verbatim}
+void inserirInicio(int x) {
+    if (n >= MAXTAM)
+        exit(1);
+    //levar elementos para o fim do array
+    for (int i = n; i > 0; i--){
+        array[i] = array[i-1];
+    }
+    array[0] = x;
+    n++;
+}
+
+void inserir(int x, int pos) {
+    if (n >= MAXTAM || pos < 0 || pos > n)
+        exit(1);
+    //levar elementos para o fim do array
+    for (int i = n; i > pos; i--){
+        array[i] = array[i-1];
+    }
+    array[pos] = x;
+    n++;
+}
+
+void inserirFim(int x) {
+    if (n >= MAXTAM)
+        exit(1);
+    array[n] = x;
+    n++;
+}
+
+int removerInicio() {
+    if (n == 0)
+        exit(1);
+    int resp = array[0];
+    n--;
+    for (int i = 0; i < n; i++){
+        array[i] = array[i+1];
+    }
+    return resp;
+}
+
+int remover(int pos) {
+    if (n == 0 || pos < 0 || pos >= n)
+        exit(1);
+    int resp = array[pos];
+    n--;
+    for (int i = pos; i < n; i++){
+        array[i] = array[i+1];
+    }
+    return resp;
+}
+
+int removerFim() {
+    if (n == 0)
+        exit(1);
+    return array[--n];
+}
+\end{verbatim}
+\subsection{Pilha (stack)}
+Primeiro elemento que entra é o último a sair. Pilha de prato.
+
+\begin{center}
+    First In Last Out (FILO)
+\end{center}
+
+Tem basicamente os métodos de inserir (empilhar, push) e remover (desempilhar, pop).
+
+\begin{verbatim}
+int array[];
+int n; 
+
+void push(int x) {
+    if (n >= MAXTAM)
+        exit(1);
+    array[n] = x;
+    n++;
+}
+
+int pop() {
+    if (n == 0)
+        exit(1);
+    return array[--n];
+}
+\end{verbatim}
+
+\subsection{Fila (Queue)}
+Are you a FIFO? Because you are a Queue\textless T\textgreater. haha.
+
+Primeiro elemento que entra é o primeiro a sair. Tem basicamente os métodos de inserir (enfileirar, enqueue) e remover (desenfileirar, dequeue). Fila de banco.
+
+As formas de implementar são: 
+\begin{itemize}
+    \item \textbf{Inserir Final e Remover Início (IF e RI) (FIFO)}: A remoção não é eficiente.
+    \item \textbf{Inserir Início e Remover Final (II e RF) (LIFO)}: A 
+\end{itemize}
+Como implementar uma fila sem que uma das operações
+desloque todos os elementos?
+
+\textbf{R:} Fazendo uma fila circular, ou seja, depois da última posição,
+retornamos para a primeira
+\begin{verbatim}
+class Fila {
+    int[] array;
+    int primeiro, ultimo;
+
+    Fila (int tamanho) {
+        array = new int[tamanho+1];
+        primeiro = ultimo = 0;
+    }
+
+    void inserir(int x) throws Exception {
+        if (((ultimo + 1) % array.length) == primeiro)
+            throw new Exception("Erro!");
+        array[ultimo] = x;
+        ultimo = (ultimo + 1) % array.length;
+    }
+
+    int remover() throws Exception {
+        if (primeiro == ultimo)
+            throw new Exception("Erro!");
+        int resp = array[primeiro];
+        primeiro = (primeiro + 1) % array.length;
+        return resp;
+    }
+
+    void mostrar() {
+        int i = primeiro;
+        System.out.print("[");
+        while (i != ultimo) {
+            System.out.print(array[i] + " ");
+            i = (i + 1) % array.length;
+        }
+        System.out.println("]");
+    }
+\end{verbatim}
+
+\end{document}
+
+\end{document}
