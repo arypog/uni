@@ -5,7 +5,6 @@ CREATE TABLE powerpuff_girls (
     age INT NOT NULL
 );
 
--- Optional initial data
 INSERT INTO powerpuff_girls (name, superpower, age) VALUES
 ('Blossom', 'Ice Breath', 6),
 ('Bubbles', 'Flight & Sound Powers', 6),
