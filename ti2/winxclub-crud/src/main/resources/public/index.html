@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>✨ Winx Club Fairy Academy ✨</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;600;700&display=swap');
+    
+    * {
+      box-sizing: border-box;
+    }
+    
+    body { 
+      font-family: 'Comfortaa', cursive;
+      margin: 0;
+      padding: 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+      min-height: 100vh;
+      color: #2d1b69;
+    }
+    
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.3) 2px, transparent 2px),
+        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.3) 2px, transparent 2px),
+        radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.2) 1px, transparent 1px);
+      background-size: 100px 100px, 150px 150px, 80px 80px;
+      pointer-events: none;
+      z-index: -1;
+    }
+    
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 25px;
+      padding: 30px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
+    }
+    
+    h1 { 
+      color: #a83279;
+      text-align: center;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(168, 50, 121, 0.3);
+      background: linear-gradient(45deg, #a83279, #764ba2, #667eea);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .subtitle {
+      text-align: center;
+      color: #764ba2;
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+      font-weight: 300;
+    }
+    
+    h2 {
+      color: #764ba2;
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin: 30px 0 15px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    h2::before {
+      content: '✨';
+      font-size: 1.2em;
+    }
+    
+    form { 
+      background: linear-gradient(135deg, #ffeef8 0%, #f0e6ff 100%);
+      padding: 25px;
+      border-radius: 20px;
+      margin-bottom: 30px;
+      box-shadow: 0 8px 25px rgba(168, 50, 121, 0.1);
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      align-items: end;
+    }
+    
+    input { 
+      padding: 12px 18px;
+      border: 2px solid #e1bee7;
+      border-radius: 25px;
+      font-family: 'Comfortaa', cursive;
+      font-size: 14px;
+      background: rgba(255, 255, 255, 0.9);
+      transition: all 0.3s ease;
+      flex: 1;
+      min-width: 150px;
+    }
+    
+    input:focus {
+      outline: none;
+      border-color: #a83279;
+      box-shadow: 0 0 15px rgba(168, 50, 121, 0.3);
+      transform: translateY(-2px);
+    }
+    
+    input::placeholder {
+      color: #b19cd9;
+      font-weight: 300;
+    }
+    
+    button { 
+      padding: 12px 25px;
+      border: none;
+      border-radius: 25px;
+      font-family: 'Comfortaa', cursive;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    button[type="submit"] {
+      background: linear-gradient(135deg, #a83279 0%, #764ba2 100%);
+      color: white;
+      box-shadow: 0 8px 20px rgba(168, 50, 121, 0.3);
+    }
+    
+    button[type="submit"]:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 25px rgba(168, 50, 121, 0.4);
+    }
+    
+    .table-container {
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    table { 
+      border-collapse: collapse; 
+      width: 100%; 
+      margin: 0;
+      background: transparent;
+    }
+    
+    th, td { 
+      padding: 15px 12px;
+      text-align: left;
+      border: none;
+      border-bottom: 1px solid rgba(225, 190, 231, 0.3);
+    }
+    
+    th { 
+      background: linear-gradient(135deg, #a83279 0%, #764ba2 100%);
+      color: white;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-size: 12px;
+      position: sticky;
+      top: 0;
+    }
+    
+    tbody tr {
+      transition: all 0.3s ease;
+    }
+    
+    tbody tr:hover { 
+      background: linear-gradient(135deg, rgba(255, 238, 248, 0.8) 0%, rgba(240, 230, 255, 0.8) 100%);
+      transform: scale(1.01);
+    }
+    
+    tbody tr:nth-child(even) { 
+      background: rgba(240, 230, 255, 0.3);
+    }
+    
+    tbody input {
+      border: 1px solid transparent;
+      background: transparent;
+      padding: 8px 12px;
+      border-radius: 15px;
+      font-size: 13px;
+      width: 100%;
+    }
+    
+    tbody input:focus {
+      background: rgba(255, 255, 255, 0.9);
+      border-color: #a83279;
+      box-shadow: 0 0 10px rgba(168, 50, 121, 0.2);
+    }
+    
+    .action-buttons {
+      display: flex;
+      gap: 8px;
+    }
+    
+    .update-btn {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 8px 15px;
+      font-size: 12px;
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+    
+    .update-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(102, 126, 234, 0.4);
+    }
+    
+    .delete-btn {
+      background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
+      color: white;
+      padding: 8px 15px;
+      font-size: 12px;
+      box-shadow: 0 4px 12px rgba(255, 107, 157, 0.3);
+    }
+    
+    .delete-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(255, 107, 157, 0.4);
+    }
+    
+    @keyframes sparkle {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+    
+    .sparkle {
+      animation: sparkle 2s infinite;
+    }
+    
+    @media (max-width: 768px) {
+      .container {
+        margin: 10px;
+        padding: 20px;
+      }
+      
+      form {
+        flex-direction: column;
+      }
+      
+      input {
+        min-width: 100%;
+      }
+      
+      .action-buttons {
+        flex-direction: column;
+      }
+      
+      table {
+        font-size: 12px;
+      }
+      
+      th, td {
+        padding: 10px 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="sparkle">✨ Winx Club Fairy Academy ✨</h1>
+    <p class="subtitle">Manage your magical fairy collection</p>
+
+    <h2>Add a New Fairy</h2>
+    <form id="addForm">
+      <input type="text" id="name" placeholder="✨ Fairy Name" required>
+      <input type="text" id="power" placeholder="🌟 Magical Power" required>
+      <input type="number" id="age" placeholder="🧚‍♀️ Age" required>
+      <button type="submit">Add Fairy</button>
+    </form>
+
+    <h2>Fairy Registry</h2>
+    <div class="table-container">
+      <table id="fairiesTable">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Power</th>
+            <th>Age</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    const apiBase = "/fairies";
+
+    async function loadFairies() {
+      const res = await fetch(apiBase);
+      const fairies = await res.json();
+
+      const tbody = document.querySelector("#fairiesTable tbody");
+      tbody.innerHTML = "";
+      fairies.forEach(f => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${f.id}</td>
+          <td><input value="${f.name}" data-id="${f.id}" data-field="name"></td>
+          <td><input value="${f.power}" data-id="${f.id}" data-field="power"></td>
+          <td><input type="number" value="${f.age}" data-id="${f.id}" data-field="age"></td>
+          <td>
+            <div class="action-buttons">
+              <button class="update-btn" onclick="updateFairy(${f.id})">Update</button>
+              <button class="delete-btn" onclick="deleteFairy(${f.id})">Delete</button>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+
+    document.getElementById("addForm").addEventListener("submit", async e => {
+      e.preventDefault();
+      const fairy = {
+        name: document.getElementById("name").value,
+        power: document.getElementById("power").value,
+        age: parseInt(document.getElementById("age").value)
+      };
+      await fetch(apiBase, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(fairy)
+      });
+      e.target.reset();
+      loadFairies();
+    });
+
+    async function updateFairy(id) {
+      const row = document.querySelectorAll(`[data-id='${id}']`);
+      const fairy = {};
+      row.forEach(input => fairy[input.dataset.field] = input.type === "number" ? parseInt(input.value) : input.value);
+
+      await fetch(`${apiBase}/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(fairy)
+      });
+      loadFairies();
+    }
+
+    // Delete fairy
+    async function deleteFairy(id) {
+      await fetch(`${apiBase}/${id}`, { method: "DELETE" });
+      loadFairies();
+    }
+
+    // Initial load
+    loadFairies();
+  </script>
+</body>
+</html>

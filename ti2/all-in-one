@@ -1,0 +1,3 @@
+#!/bin/bash
+sudo -iu postgres psql -d postgres -c "CREATE DATABASE powerpuffdb;"
+sudo -iu postgres psql -d powerpuffdb -f /home/ary/Uni/ti2/ElementX/src/main/resources/sql/schema.sql
