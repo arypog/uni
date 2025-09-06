@@ -355,13 +355,11 @@
       loadFairies();
     }
 
-    // Delete fairy
     async function deleteFairy(id) {
       await fetch(`${apiBase}/${id}`, { method: "DELETE" });
       loadFairies();
     }
 
-    // Initial load
     loadFairies();
   </script>
 </body>
