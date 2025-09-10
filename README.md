@@ -1,4 +1,4 @@
-# Repositorio sobre C.C. (Não confundir com a C2)
+# Repositorio sobre C.C. (Não sobre a C2)
 Este repositório contém os materiais, exercícios e projetos do meu curso de Ciência da Computação
 
 
@@ -9,3 +9,4 @@ Este repositório contém os materiais, exercícios e projetos do meu curso de C
 - **CALC**: Cálculo
 - **AI**: Inteligência Artificial
 - **OFF**: Oficinas/Atividades Extra Curriculares
+
